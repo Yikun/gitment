@@ -184,14 +184,10 @@ class Gitment {
 
   loadMeta() {
     const { id, owner, repo } = this
-    return http.get(`/repos/${owner}/${repo}/issues`, {
-        creator: owner,
-        labels: id,
-      })
+    return http.get(`/repos/${owner}/${repo}/issues/${id}`)
       .then(issues => {
-        if (!issues.length) return Promise.reject(NOT_INITIALIZED_ERROR)
-        this.state.meta = issues[0]
-        return issues[0]
+        this.state.meta = issues
+        return issues
       })
   }
 
